@@ -1,21 +1,34 @@
 <template>
   <section>FILTER</section>
   <section>
-    <div class="controls">
-      <button>Refresh</button>
-      <router-link to="/register">Register as a Mentor</router-link>
-    </div>
-    <ul v-if="hasMentors">
-      <li v-for="mentor in filteredMentors" :key="mentor.id">
-        {{ mentor.firstName }}
-      </li>
-    </ul>
-    <h3 v-else>No mentors</h3>
+    <base-card>
+      <div class="controls">
+        <base-button mode="outline">Refresh</base-button>
+        <base-button link to="/register">Register as a Mentor</base-button>
+      </div>
+      <ul v-if="hasMentors">
+        <mentor-item
+          v-for="mentor in filteredMentors"
+          :key="mentor.id"
+          :id="mentor.id"
+          :firstName="mentor.firstName"
+          :lastName="mentor.lastName"
+          :rate="mentor.hourlyRate"
+          :areas="mentor.areas"
+        ></mentor-item>
+      </ul>
+      <h3 v-else>No mentors</h3>
+    </base-card>
   </section>
 </template>
 
 <script>
+import MentorItem from '../../components/mentors/MentorItem.vue';
+
 export default {
+  components: {
+    MentorItem,
+  },
   computed: {
     filteredMentors() {
       return this.$store.getters['mentors/mentors'];
@@ -26,3 +39,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
