@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import MentorDetails from './pages/mentors/MentorDetails.vue';
+import MentorDetail from './pages/mentors/MentorDetail.vue';
 import MentorRegistration from './pages/mentors/MentorRegistration.vue';
 import MentorsList from './pages/mentors/MentorsList';
 import ContactMentors from './pages/requests/ContactMentors.vue';
@@ -14,7 +14,8 @@ const router = createRouter({
     { path: '/mentors', component: MentorsList },
     {
       path: '/mentors/:id',
-      component: MentorDetails,
+      component: MentorDetail,
+      props: true,
       children: [{ path: 'contact', component: ContactMentors }],
     },
     { path: '/register', component: MentorRegistration },
